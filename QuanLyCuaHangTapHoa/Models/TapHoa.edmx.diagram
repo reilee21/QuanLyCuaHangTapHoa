@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6d71af3c6a2f435198a05aaa293e76fe" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="TapHoaModel.BangGia" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.ChiTietBangGia" Width="1.5" PointX="8.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.ChiTietHoaDon" Width="1.5" PointX="8.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.ChiTietPhieuNhapTra" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.ChiTietThongKe" Width="1.5" PointX="11" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.DonViTinh" Width="1.5" PointX="3.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.HangHoa" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.HoaDon" Width="1.5" PointX="6" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.NhaCungCap" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.PhieuNhapTra" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.TaiKhoan" Width="1.5" PointX="3.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.ThongKeDoanhThu" Width="1.5" PointX="8.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TapHoaModel.Thue" Width="1.5" PointX="3.75" PointY="7.875" IsExpanded="true" />
+        <AssociationConnector Association="TapHoaModel.FK_ChiTietBangGia_BangGia" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_ChiTietBangGia_HangHoa" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_ChiTietHoaDon_HangHoa" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_ChiTietHoaDon_HoaDon" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_ChiTietPhieuNhapTra_HangHoa" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_ChiTietPhieuNhapTra_NhaCungCap" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_ChiTietPhieuNhapTra_PhieuNhapTra" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK__ChiTietTh__MaTKD__59063A47" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_HangHoa_DonViTinh" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_HangHoa_NhaCungCap" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_HangHoa_Thue" ManuallyRouted="false" />
+        <AssociationConnector Association="TapHoaModel.FK_HoaDon_TaiKhoan" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

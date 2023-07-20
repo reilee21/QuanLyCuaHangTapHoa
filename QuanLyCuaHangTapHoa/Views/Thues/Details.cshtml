@@ -1,0 +1,35 @@
+﻿@model QuanLyCuaHangTapHoa.Models.Thue
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Thue</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenThue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenThue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MucThue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MucThue)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaThue }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

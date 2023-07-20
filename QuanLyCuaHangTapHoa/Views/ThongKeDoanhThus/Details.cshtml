@@ -1,0 +1,51 @@
+﻿@model QuanLyCuaHangTapHoa.Models.ThongKeDoanhThu
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ThongKeDoanhThu</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenThongKe)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenThongKe)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TuNgay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TuNgay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DenNgay)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DenNgay)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DoanhThu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DoanhThu)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaTKDT }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

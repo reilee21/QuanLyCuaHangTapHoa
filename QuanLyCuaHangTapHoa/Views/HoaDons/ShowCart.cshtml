@@ -1,0 +1,60 @@
+﻿@model QuanLyCuaHangTapHoa.Models.Cart
+
+
+<script>
+    function remove(id) {
+        $.post('/HoaDons/Removecart', { id: id }, function () {
+            window.location.reload();
+        }).fail(function () {
+            alert('Lỗi.');
+        });
+    }
+    function updateQtity(itemId, quantity) {
+        $.post('/HoaDons/Update_Cart_Quantity', { id: itemId, qtity: quantity }, function () {
+            window.location.reload();
+        }).fail(function () {
+            alert('Lỗi.');
+        });
+    }
+
+
+    function updateCartItemPrice(id, newprice) {
+        $.post('/HoaDons/ChangePrice', { id: id, price: newprice }, function () {
+            window.location.reload();
+        }).fail(function () {
+            alert('Lỗi.' + id + "---" + newprice);
+        });
+
+    }
+</script>
+
+@if (Model != null)
+{
+    foreach (var item in Model.Items)
+    {
+        decimal total = item._quantity * (decimal)item._price * (1 + item._product.MucThue);
+        <tr>
+            <td class="ten">
+                <img src="~/Content/images/@item._product.AnhMoTa" width="70" />
+                @item._product.TenHangHoa
+            </td>
+            <td class="sluong">
+                <input type="number" @item._product . value="@item._quantity" onchange="updateQtity('@item._product.MaHangHoa', this.value)"
+                       name="carQuantity" />
+            </td>
+            <td class="tien"><input type="number" id="price" value="@item._price" name="carQuantity" onchange="updateCartItemPrice('@item._product.MaHangHoa',this.value)" /></td>
+            <td class="tien">@item._product.MucThue</td>
+
+
+            <td class="tien">@total.ToString("#,##0")</td>
+            <td class="space">
+
+                <button type="button" class="xoa" onclick="remove('@item._product.MaHangHoa')">
+                    Xóa
+                </button>
+
+            </td>
+        </tr>
+    }
+}
+

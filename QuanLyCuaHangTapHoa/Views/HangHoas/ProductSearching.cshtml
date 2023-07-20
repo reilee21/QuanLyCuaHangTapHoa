@@ -1,0 +1,33 @@
+﻿@model IEnumerable<QuanLyCuaHangTapHoa.Models.HangHoa>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('li').on('click', function () {
+            var id = $(this).data('item-id');
+            addToCart(id);
+        });
+        function addToCart(id) {
+            $.post('/HoaDons/AddToCart', { id: id }, function () {
+                window.location.reload();
+            }).fail(function () {
+                alert('Lỗi.');
+            });
+        }
+    });
+</script>
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li onclick="addToCart('@item.MaHangHoa')" data-item-id="@item.MaHangHoa">
+                <img src="~/Content/images/@item.AnhMoTa" width="120" />
+                @item.TenHangHoa
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Không tìm thấy</p>
+}

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<QuanLyCuaHangTapHoa.Models.HoaDon>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBanHang.cshtml";
+}
+<style>
+    .table-striped {
+        width: 95%;
+        margin: 0 auto;
+    }
+
+    .hd {
+        background: #ffffff
+    }
+</style>
+
+
+<table class="table table-striped">
+    <tr style="background-color: steelblue; color: lightcyan; text-align: left; height:50px">
+        <th style="border-top-left-radius: 25px;">
+            Đơn hàng
+        </th>
+        <th>
+            Người tạo
+        </th>
+        <th>
+            Tổng số lượng
+        </th>
+        <th>
+            Tổng tiền
+        </th>
+        <th>
+            Tổng tiền thuế
+        </th>
+
+        <th style="border-top-right-radius: 25px;"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class="hd">
+            <td>
+                @Html.DisplayFor(modelItem => item.MaHD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaiKhoan.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongSoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongTienThue)
+            </td>
+            <td>
+                @if (Session["Role"].Equals("QL"))
+                {
+                    <a href="/ChiTietHoaDons/ViewOrderDetails?idHD=@item.MaHD"> Xoá </a>
+                    <a href="/ChiTietHoaDons/ViewOrderDetails?idHD=@item.MaHD"> Sửa </a>
+                }
+                <a href="/ChiTietHoaDons/ViewOrderDetails?idHD=@item.MaHD"> In </a>
+                <a href="/ChiTietHoaDons/ViewOrderDetails?idHD=@item.MaHD"> Xem chi tiết </a>
+            </td>
+        </tr>
+    }
+</table>

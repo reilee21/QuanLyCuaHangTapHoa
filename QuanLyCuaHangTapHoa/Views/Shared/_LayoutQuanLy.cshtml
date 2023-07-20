@@ -1,0 +1,74 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Quản lý hàng bán</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+<link href="~/Content/mng.css" rel="stylesheet" />
+
+</head>
+<body>
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="#">
+                    <span>
+                        Quản lý
+                    </span>
+                </a>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+                        <ul class="navbar-nav" style="padding-inline-start: 0;">
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/HoaDons/Create">bán hàng </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">nhập hàng </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">trả hàng </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/DangNhap/LogOut"> đăng xuất </a>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="nav" id="nav2">
+                    <a type="button" class="btnroute" href="/HangHoas/Index">Hàng hoá</a>
+                    <a type="button" class="btnroute" href="/BangGias/Index">Bảng giá</a>
+                    <a type="button" class="btnroute" href="/Thues/Index">Thuế</a>
+                    <a type="button" class="btnroute" href="/NhaCungCaps/Index">Nhà cung cấp</a>
+                    <a type="button" class="btnroute" href="/DonViTinhs/Index">Đơn vị tính</a>
+                    @if (Session["Role"].Equals("QL"))
+                    {
+                        <a type="button" class="btnroute" href="#">Thống kê</a>
+                    }
+                </div>
+            </div>
+            <hr />
+        </nav>
+    </header>
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <footer>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

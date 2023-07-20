@@ -1,0 +1,34 @@
+﻿@model IEnumerable<QuanLyCuaHangTapHoa.Models.DonViTinh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenDVT)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenDVT)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaDVT }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaDVT }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaDVT })
+        </td>
+    </tr>
+}
+
+</table>

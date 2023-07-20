@@ -1,0 +1,35 @@
+﻿@model QuanLyCuaHangTapHoa.Models.BangGia
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutQuanLy.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BangGia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayTao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayTao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayApDung)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayApDung)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaBangGia }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

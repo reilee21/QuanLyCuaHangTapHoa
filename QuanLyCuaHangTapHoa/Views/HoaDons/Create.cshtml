@@ -1,0 +1,126 @@
+﻿@model QuanLyCuaHangTapHoa.Models.Cart
+
+@{
+    ViewBag.Title = "Bán hàng";
+    Layout = "~/Views/Shared/_LayoutBanHang.cshtml";
+}
+
+<link href="~/Content/cart.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#SearchString').on('input', function () {
+            var searchString = $(this).val();
+            if (searchString.length < 2) {
+                $('#searchResults').empty();
+                return;
+            }
+            $.get('/HangHoas/ProductSearching', { searchString: searchString }, function (data) {
+                $('#searchResults').html(data);
+            });
+        });
+    });
+
+    function newCart() {
+        fetch('/HoaDons/newCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+
+                if (response.ok) {
+                    window.location.reload();
+                }
+            })
+            .catch(error => {
+                // Handle any error that occurred during the request
+                console.error('Error:', error);
+            });
+    }
+    function countChange() {
+        var total = parseInt(document.getElementById("total").innerText.replace(/,/g, ""));
+        var khachDua = parseInt(document.getElementById("kd").value);
+        var change = khachDua - total;
+        var changeSpan = document.getElementById("change");
+        changeSpan.innerText = change;
+    }
+    function checkOut() {
+        alert(parseInt(document.getElementById("change").innerText));
+
+    }
+</script>
+
+
+<div class="sbar">
+    <input type="text" class="form-control" placeholder=" Nhập tên hàng hoá bạn muốn tìm"
+           id="SearchString" name="SearchString" style="border-bottom-left-radius: 10px;border-top-left-radius:10px;">
+    <div id="searchResults"></div>
+</div>
+<button class="del" style="margin:8px 24px; padding: 8px; text-transform:uppercase" onclick="newCart()"> tạo hoá đơn mới</button>
+
+<div class="row">
+    <div class="col-sm-8">
+        <table>
+            <thead>
+                <tr class="text-center ">
+                    <th class="ten">Tên hàng hoá</th>
+                    <th class="sluong">Số lượng</th>
+                    <th class="tien">Đơn giá</th>
+                    <th class="tien">Thuế</th>
+
+                    <th class="tien">Thành tiền</th>
+                    <th class="space"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @Html.Action("ShowCart", "HoaDons")
+            </tbody>
+
+        </table>
+    </div>
+    @if (Model != null)
+    {
+        <div class="col-sm-4 dl-horizontal">
+            <div class="checkout">
+                <div class="col-md-12">
+                    <span class="td">Tổng tiền hàng</span>
+                    <span class="tt">
+                        @Model.Total_money().ToString("#,##0")
+                    </span>
+
+                </div>
+                <div class="col-md-12">
+                    <span class="td">Tổng tiền thuế</span>
+                    <span class="tt">
+                        @Model.Total_tax().ToString("#,##0")
+                    </span>
+
+                </div>
+                <div class="col-md-12">
+                    <span class="td">Tổng cộng</span>
+                    <span class="tt" id="total">
+                        @Model.Total_all().ToString("#,##0")
+                    </span>
+
+                </div>
+                <div class="col-md-12">
+                    <b>Tiền khách đưa</b>
+                    <input type="number" id="kd" class="tt" min="@Model.Total_all()" onchange="countChange()" required />
+                </div>
+                <div class="col-md-12">
+                    <b>Tiền trả khách</b>
+                    <span class="tt" name="change" id="change">
+                    </span>
+                </div>
+                <div class="col-md-12">
+                    <button class="button-9" role="button" onclick="checkOut()">Thanh toán</button>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

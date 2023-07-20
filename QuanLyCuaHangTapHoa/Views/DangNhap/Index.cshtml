@@ -1,0 +1,43 @@
+﻿@model QuanLyCuaHangTapHoa.Models.TaiKhoan
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Trang đăng nhập</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <link href="~/Content/login.css" rel="stylesheet" />
+</head>
+<body>   
+    <div class="container">
+        <div class="screen">
+            <div class="screen__content">
+                <h2 class="tieude"> Đăng nhập</h2>                
+                <form action="/DangNhap/DangNhap" class="login" method="post">
+                    <p class="field-validation-error">@ViewBag.ErrorLogin</p>                   
+                    <div class="login__field">
+                        <input type="text" name="Username" class="login__input" placeholder="Tài khoản">
+                    </div>
+                    <div class="login__field">
+                        <input type="password" name="Passwords" class="login__input" placeholder="Mật khẩu">
+                    </div>
+                    <button class="button login__submit">
+                        <span>Đăng nhập </span>
+                    </button>
+                </form>
+                <a href="#">Quên mật khẩu ?  </a>
+            </div>
+            <div class="screen__background">
+                <span class="screen__background__shape screen__background__shape4"></span>
+                <span class="screen__background__shape screen__background__shape3"></span>
+                <span class="screen__background__shape screen__background__shape2"></span>
+                <span class="screen__background__shape screen__background__shape1"></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

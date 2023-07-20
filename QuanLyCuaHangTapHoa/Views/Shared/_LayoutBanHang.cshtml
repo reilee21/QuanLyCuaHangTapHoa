@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+     <link href="~/Content/sale.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="header_section">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="#">                    
+                    <span>
+                        Bán hàng
+                    </span>
+                </a>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="~/HangHoas/Index">Quản lý <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/HoaDons/Create">lập hoá đơn </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/HoaDons/Index">xem danh sách hoá đơn </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/DangNhap/LogOut"> đăng xuất </a>
+                            </li>                                                      
+                        </ul>                       
+                    </div>                    
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="content">
+        @RenderBody()
+    </div>
+</body>
+</html>
