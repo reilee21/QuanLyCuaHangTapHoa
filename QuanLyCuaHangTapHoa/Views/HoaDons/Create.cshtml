@@ -6,54 +6,8 @@
 }
 
 <link href="~/Content/cart.css" rel="stylesheet" />
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#SearchString').on('input', function () {
-            var searchString = $(this).val();
-            if (searchString.length < 2) {
-                $('#searchResults').empty();
-                return;
-            }
-            $.get('/HangHoas/ProductSearching', { searchString: searchString }, function (data) {
-                $('#searchResults').html(data);
-            });
-        });
-    });
-
-    function newCart() {
-        fetch('/HoaDons/newCart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(response => {
-
-                if (response.ok) {
-                    window.location.reload();
-                }
-            })
-            .catch(error => {
-                // Handle any error that occurred during the request
-                console.error('Error:', error);
-            });
-    }
-    function countChange() {
-        var total = parseInt(document.getElementById("total").innerText.replace(/,/g, ""));
-        var khachDua = parseInt(document.getElementById("kd").value);
-        var change = khachDua - total;
-        var changeSpan = document.getElementById("change");
-        changeSpan.innerText = change;
-    }
-    function checkOut() {
-        alert(parseInt(document.getElementById("change").innerText));
-
-    }
-</script>
-
+<script src="~/Scripts/hoadon.js"></script>
 
 <div class="sbar">
     <input type="text" class="form-control" placeholder=" Nhập tên hàng hoá bạn muốn tìm"
@@ -124,3 +78,31 @@
         </div>
     }
 </div>
+
+
+<div id="checkoutModal" class="modal" tabindex="-1" style="z-index: 1000">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header" style=" background: #009C6C">
+                <h3 class="modal-title">Thành công</h3>               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal(1)">Đóng</button>               
+            </div>
+        </div>
+    </div>
+</div>
+<div id="errorModal" class="modal" tabindex="-1" style="z-index: 1000">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style=" background: #F9F871">
+                <h3 class="modal-title">Kiểm tra lại tiền khách đưa</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeModal(2)">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

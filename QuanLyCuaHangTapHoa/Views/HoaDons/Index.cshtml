@@ -4,6 +4,10 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutBanHang.cshtml";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
 <style>
     .table-striped {
         width: 95%;
@@ -13,7 +17,123 @@
     .hd {
         background: #ffffff
     }
+    /* Style for the container div */
+    .date-container {
+        display: flex;
+        width: 60%;
+        margin: 0 auto;
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .date-option-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+        /* Add some space between the buttons */
+        .date-option-btn:not(:last-child) {
+            margin-right: 10px;
+        }
+
+    /* Style for datepicker inputs */
+    .date-picker {
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    /* Additional styles for datepicker popup */
+    .ui-datepicker {
+        font-size: 14px;
+        background: white;
+    }
+
+    #select-date-btn {
+        margin-left: 30px;
+    }
 </style>
+<script>
+    $(document).ready(function () {
+        // Function to handle when "Ngày hôm nay" button is clicked
+        $("#today-btn").click(function () {
+            // Get today's date and set it to the datepicker inputs
+            var today = new Date();
+            var formattedToday = formatDate(today);
+            $("#date-start-picker").val(formattedToday);
+            $("#date-end-picker").val(formattedToday);
+
+            // Submit the form with the selected dates
+            $("#date-range-form").submit();
+        });
+
+        // Function to handle when "Ngày hôm qua" button is clicked
+        $("#yesterday-btn").click(function () {
+            // Get yesterday's date and set it to the datepicker inputs
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            var formattedYesterday = formatDate(yesterday);
+            $("#date-start-picker").val(formattedYesterday);
+            $("#date-end-picker").val(formattedYesterday);
+
+            // Submit the form with the selected dates
+            $("#date-range-form").submit();
+        });
+
+        // Function to handle when "Chọn ngày" button is clicked
+        $("#select-date-btn").click(function () {
+            var startDate = $("#date-start-picker").val();
+            var endDate = $("#date-end-picker").val();
+
+            // Check if both start and end dates are picked
+            if (!startDate || !endDate) {
+                alert("Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.");
+                return; // Exit the function if dates are not picked
+            }
+            else
+                $("#date-range-form").submit();
+        });
+
+        // Function to handle form submission
+        $("#date-range-form").submit(function (event) {
+            // Prevent default form submission
+            event.preventDefault();
+
+            // Get the selected start and end dates from the datepicker inputs
+            var startDate = $("#date-start-picker").val();
+            var endDate = $("#date-end-picker").val();
+
+            // Submit the form with the selected dates
+            this.submit();
+        });
+
+        // Helper function to format date as "yyyy-MM-dd" for datepicker input
+        function formatDate(date) {
+            var year = date.getFullYear();
+            var month = String(date.getMonth() + 1).padStart(2, "0");
+            var day = String(date.getDate()).padStart(2, "0");
+            return year + "-" + month + "-" + day;
+        }
+    });
+</script>
+
+<div class="date-container">
+    <button class="date-option-btn" id="today-btn">Ngày hôm nay</button>
+    <button class="date-option-btn" id="yesterday-btn">Ngày hôm qua</button>
+    <button class="date-option-btn" id="select-date-btn">Chọn ngày</button>
+    <form id="date-range-form" method="post" action="@Url.Action("DanhSachHoaDon", "HoaDons")">
+        <input id="date-start-picker" name="dateStart" class="date-option date-picker" type="date" placeholder="Ngày bắt đầu" />
+        <input id="date-end-picker" name="dateEnd" class="date-option date-picker" type="date" placeholder="Ngày kết thúc" />
+        <input type="submit" style="display: none;" />
+    </form>
+</div>
+
+
 
 
 <table class="table table-striped">

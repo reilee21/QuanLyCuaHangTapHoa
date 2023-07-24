@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -184,9 +185,70 @@ namespace QuanLyCuaHangTapHoa.Controllers
             Cart cart = Session["Cart"] as Cart;
             cart.updatePrice(id, price);
         }
-        public void CheckOut()
+        public void CheckOut(double kd, double change)
         {
+            try
+            {
+                TimeZoneInfo vietnamTimeZone = TimeZoneInfo.CreateCustomTimeZone("Asia/Bangkok", TimeSpan.FromHours(7), "Bangkok", "Bangkok");
+                DateTime vntime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vietnamTimeZone);
+                string moment = vntime.ToString("ddMMyyHHmmss");
+
+                Cart cart = Session["Cart"] as Cart;
+                HoaDon hd = new HoaDon();
+                hd.MaHD = moment;
+                hd.MaTaiKhoan = Session["IdAcc"].ToString();
+                hd.Username = Session["Usn"].ToString();
+                hd.TongSoLuong = (short)cart.Total_quantity();
+                hd.TongTien = (double)cart.Total_all();
+                hd.TongTienThue = (double)cart.Total_tax();
+                hd.TienKhachDua = kd;
+                hd.TienThoi = change;
+
+                db.HoaDons.Add(hd);
+
+                foreach (var item in cart.Items)
+                {
+                    ChiTietHoaDon ct = new ChiTietHoaDon();
+                    ct.MaHD = hd.MaHD;
+                    ct.MaHH = item._product.MaHangHoa;
+                    ct.SoLuong = (short)item._quantity;
+                    ct.GiaBan = (double)item._price;
+                    ct.MucThue = item._product.MucThue;
+                    ct.ThanhTien = (double)(item._quantity * (decimal)item._price * (1 + item._product.MucThue));
+                    db.ChiTietHoaDons.Add(ct);
+                    foreach (var hh in db.HangHoas.Where(s => s.MaHangHoa == ct.MaHH))
+                    {
+                        var updateQty = hh.SoLuong - ct.SoLuong;
+                        hh.SoLuong = (short)updateQty;
+                    }                    
+                }
+                db.SaveChanges();
+                cart.ClearCart();
+                
+            }
+            catch
+            {
+                return;
+            }          
 
         }
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult DanhSachHoaDon(DateTime? dateStart, DateTime? dateEnd)
+        {
+            if (dateStart == null || dateEnd == null)
+            {
+                var hd = db.HoaDons.Include(h => h.TaiKhoan);
+                return View(hd.ToList());
+            }
+            else
+            {
+                string st = dateStart.Value.ToString("ddMMyy");
+                string en = dateEnd.Value.ToString("ddMMyy");
+                var hoaDons = db.HoaDons.Where(hd => hd.MaHD.Substring(0, 6).CompareTo(st) >= 0 &&
+                                                     hd.MaHD.Substring(0, 6).CompareTo(en) <= 0);
+                return View("Index", hoaDons.ToList());
+            }
+        }
+
     }
 }

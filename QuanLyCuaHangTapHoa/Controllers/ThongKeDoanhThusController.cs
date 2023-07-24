@@ -123,5 +123,34 @@ namespace QuanLyCuaHangTapHoa.Controllers
             }
             base.Dispose(disposing);
         }
+
+        private List<HangHoa> GetTop5SanPhamBanChay()
+        {
+            var top5SanPhamBanChay = db.ChiTietHoaDons
+                .GroupBy(cthd => cthd.MaHH)
+                .Select(group => new
+                {
+                    MaHH = group.Key,
+                    SoLuongBan = group.Sum(cthd => cthd.SoLuong)
+                })
+                .OrderByDescending(item => item.SoLuongBan)
+                .Take(5)
+                .Join(db.HangHoas,
+                    item => item.MaHH,
+                    hh => hh.MaHangHoa,
+                    (item, hh) => hh)
+                .ToList();
+
+            return top5SanPhamBanChay;
+        }
+        public ActionResult Top5SanPhamBanChay()    
+        {
+            // Get the list of top 5 best-selling products
+            List<HangHoa> top5SanPhamBanChay = GetTop5SanPhamBanChay();
+
+            // Return the View, passing the list of top 5 best-selling products to the View
+            return View(top5SanPhamBanChay);
+        }
+
     }
 }

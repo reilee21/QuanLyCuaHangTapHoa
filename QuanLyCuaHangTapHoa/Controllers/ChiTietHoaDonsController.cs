@@ -135,10 +135,12 @@ namespace QuanLyCuaHangTapHoa.Controllers
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult ViewOrderDetails(string idHD)
         {
-
             var chiTietHoaDons = db.ChiTietHoaDons.Include(c => c.HangHoa).Include(c => c.HoaDon).Where(x => x.MaHD.Equals(idHD));
             return View("Details", chiTietHoaDons.ToList());
 
         }
+
+
+
     }
 }
